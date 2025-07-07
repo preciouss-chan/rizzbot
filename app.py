@@ -34,7 +34,7 @@ for k, v in defaults.items():
 
 # ── Helper: generate Rizz lines via OpenAI API ─────
 def generate_rizz_candidates(user_input: str, n: int = 1) -> list[str]:
-    client = openai.OpenAI(api.key=openai.api_key)
+    client = openai.OpenAI()
 
     with open("rizz_example.json", "r", encoding="utf-8") as f:
         examples = json.load(f)
