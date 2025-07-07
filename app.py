@@ -40,9 +40,9 @@ def generate_rizz_candidates(user_input: str, n: int = 1) -> list[str]:
         examples = json.load(f)
     primary_context = "\n".join(f"{ex['prompt']}\n{ex['response']}" for ex in examples)
 
-    secondary_context = "\n".join(get_positive_example())
+    #secondary_context = "\n".join(get_positive_example())
 
-    combined_context = primary_context + "\n" + secondary_context
+    #combined_context = primary_context + "\n" + secondary_context
 
     prompt = f"Her: {user_input}\nMe:"
 
@@ -57,7 +57,7 @@ def generate_rizz_candidates(user_input: str, n: int = 1) -> list[str]:
                     "Keep them short and punchy — think Tinder pro, not awkward bot."
                 ),
             },
-            {"role": "user", "content": combined_context},
+            {"role": "user", "content": primary_context},
             {"role": "user", "content": prompt},
         ],
         temperature=0.9,
