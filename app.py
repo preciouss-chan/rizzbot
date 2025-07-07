@@ -11,7 +11,12 @@ from dotenv import load_dotenv
 
 # ── Setup ──────────────────────────────────────────
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+try:
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    openai.api_key = os.getenv("OPENAI_API_KEY")
 
 st.set_page_config(page_title="💘 RizzBot", page_icon="💘")
 st.title("💘 RizzBot – Rizz up that Baddie!")
@@ -29,7 +34,7 @@ for k, v in defaults.items():
 
 # ── Helper: generate Rizz lines via OpenAI API ─────
 def generate_rizz_candidates(user_input: str, n: int = 1) -> list[str]:
-    client = openai.OpenAI()
+    client = openai.OpenAI(api.key=openai.api_key)
 
     with open("rizz_example.json", "r", encoding="utf-8") as f:
         examples = json.load(f)
