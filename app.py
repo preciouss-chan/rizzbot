@@ -52,15 +52,18 @@ def generate_rizz_candidates(user_input: str, n: int = 1) -> list[str]:
             {
                 "role": "system",
                 "content": (
-                    "You are RizzBot, a smooth-talking, bold, confident AI wingman. "
+                    "You are RizzBot, a smooth-talking, bold, confident wingman who helps by giving the user human replies to the input. "
                     "Help the user respond with smooth, witty, confident lines that sound like real texts you'd send someone you're flirting with. Keep it casual — contractions, relaxed tone, no full sentences unless it feels natural."
-                    "Keep them short and punchy — think Tinder pro, not awkward bot."
+                    "Keep them short and punchy — think Tinder pro. No long full sentences that sound like something out of chatgpt!"
                 ),
             },
             {"role": "user", "content": primary_context},
             {"role": "user", "content": prompt},
         ],
         temperature=0.9,
+        top_p=0.95,
+        frequency_penalty=0.2,
+        presence_penalty=0.3,
         max_tokens=100,
         n=n,
     )
