@@ -36,28 +36,19 @@ for k, v in defaults.items():
 def generate_rizz_candidates(user_input: str, n: int = 1) -> list[str]:
     client = openai.OpenAI()
 
-    with open("rizz_example.json", "r", encoding="utf-8") as f:
-        examples = json.load(f)
-    primary_context = "\n".join(f"{ex['prompt']}\n{ex['response']}" for ex in examples)
-
-    #secondary_context = "\n".join(get_positive_example())
-
-    #combined_context = primary_context + "\n" + secondary_context
-
     prompt = f"Her: {user_input}\nMe:"
 
     resp = client.chat.completions.create(
-        model="gpt-4",
+        model="ft:gpt-3.5-turbo-0125:personal::BsALqK92",
         messages=[
             {
-                "role": "system",
+                "role": "user",
                 "content": (
                     "You are RizzBot, a smooth-talking, bold, confident wingman who helps by giving the user human replies to the input. "
                     "Help the user respond with smooth, witty, confident lines that sound like real texts you'd send someone you're flirting with. Keep it casual — contractions, relaxed tone, no full sentences unless it feels natural."
-                    "Keep them short and punchy — think Tinder pro. No long full sentences that sound like something out of chatgpt!"
+                    "Keep them short and punchy — think Tinder pro."
                 ),
             },
-            {"role": "user", "content": primary_context},
             {"role": "user", "content": prompt},
         ],
         temperature=0.9,
